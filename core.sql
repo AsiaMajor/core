@@ -1,4 +1,4 @@
-CREATE TABLE trainingData(
+CREATE TABLE TrainingData(
     sheetNumber INT,
     iteration INT,
     avgMoe FLOAT,
@@ -16,7 +16,7 @@ CREATE TABLE trainingData(
     PRIMARY KEY (sheetNumber, iteration)
 );
 
-CREATE TABLE testingData(
+CREATE TABLE TestingData(
     sheetNumber INT,
     iteration INT,
     avgMoe FLOAT,
