@@ -19,3 +19,4 @@ import resources, models
 
 api.add_resource(resources.AllSheets, '{}/all'.format(base_path))
 api.add_resource(resources.Analyze, '{}/analyze'.format(base_path))
+api.add_resource(resources.ReadFile, '{}/read'.format(base_path))
