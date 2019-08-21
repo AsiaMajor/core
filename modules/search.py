@@ -134,15 +134,15 @@ class Search():
 
         #JSON building (if you want to add more metrics, add them here)
         for d in result:
+            query_result = Sheet.query.filter_by(sheet_label=d[0]).first()
             metrics = {
                 "cosine_similarity_score": d[1]["cosine_similarity_score"],
-                # DO WE WANT THE METRICS BELOW?
-                # "avgMoe": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgmoe),
-                # "avgSg": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgsg),
-                # "avgMc": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgmc),
-                # "avgVel": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgvel),
-                # "avgUPT": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgupt),
-                # "pkDensity": float(Sheet.query.filter_by(sheet_label=d[0]).first().pkdensity)
+                "avgMoe": float(query_result.avgmoe),
+                "avgSg": float(query_result.avgsg),
+                "avgMc": float(query_result.avgmc),
+                "avgVel": float(query_result.avgvel),
+                "avgUPT": float(query_result.avgupt),
+                "pkDensity": float(query_result.pkdensity)
             }
             result_dic[d[0]] = metrics
         
