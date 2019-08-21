@@ -125,22 +125,26 @@ class Search():
                 rating = cosine_similarity(complete_df[feature_of_interest].values.reshape(1, -1),complete_df[sheet].values.reshape(1, -1))
                 ratings[sheet] = {
                    "cosine_similarity_score": float(rating),
-                #    # WE MIGHT WANNA QUERY LATER.
-                   "avgMoe": float(Sheet.query.filter_by(sheet_label=sheet).first().avgmoe),
-                   "avgSg": float(Sheet.query.filter_by(sheet_label=sheet).first().avgsg),
-                   "avgMc": float(Sheet.query.filter_by(sheet_label=sheet).first().avgmc),
-                   "avgVel": float(Sheet.query.filter_by(sheet_label=sheet).first().avgvel),
-                   "avgUPT": float(Sheet.query.filter_by(sheet_label=sheet).first().avgupt),
-                   "pkDensity": float(Sheet.query.filter_by(sheet_label=sheet).first().pkdensity) 
                 }
                 print("query performed.")
             print()
         sorted_ratings = sorted(ratings.items(), key=lambda item: item[1]['cosine_similarity_score'], reverse=True)
         result = sorted_ratings[0:top_x] #Array of lists
+        print("result", result)
 
         #JSON building (if you want to add more metrics, add them here)
         for d in result:
-            result_dic[d[0]] = d[1]
+            metrics = {
+                "cosine_similarity_score": d[1]["cosine_similarity_score"],
+                # DO WE WANT THE METRICS BELOW?
+                # "avgMoe": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgmoe),
+                # "avgSg": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgsg),
+                # "avgMc": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgmc),
+                # "avgVel": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgvel),
+                # "avgUPT": float(Sheet.query.filter_by(sheet_label=d[0]).first().avgupt),
+                # "pkDensity": float(Sheet.query.filter_by(sheet_label=d[0]).first().pkdensity)
+            }
+            result_dic[d[0]] = metrics
         
         return result_dic
    
