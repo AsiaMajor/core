@@ -38,7 +38,7 @@ class Analyze(Resource):
         else:
             input_file.save(os.path.join('/tmp/', input_file.filename))
             print("ANALYZING!")
-            big_five, the_one = Search.analyze(os.path.join('/tmp/', input_file.filename))
+            big_five, the_one = Search().analyze(os.path.join('/tmp/', input_file.filename))
             os.remove(os.path.join('/tmp/', input_file.filename))
             return {
                 'success': True,
