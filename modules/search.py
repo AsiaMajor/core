@@ -396,7 +396,7 @@ class Search():
         return big_five, the_one[0]
 
 
-    def analyze(self, input_file):
+    def analyze(input_file):
         print(input_file)
         search = Search()
         
