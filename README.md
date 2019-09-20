@@ -2,8 +2,13 @@
 
 ## SETUP:
 * `$ cd core`
+* `$ virtualenv env`
+* `$ source env/bin/activate`
 * `$ pip3 install requirements.txt`
-* `$ FLASK_APP=app.py FLASK_DEBUG=1 flask run`
+* `$ FLASK_DEBUG=1 flask run`
+
+## Testing:
+* `$ pytest -vv`
 
 ## API endpoints:
 * `localhost:5000/` with method `GET` --> Frontend end-point.
