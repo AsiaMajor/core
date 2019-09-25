@@ -3,6 +3,7 @@ import pandas as pd
 import csv
 import numpy as np 
 import math
+import time
 from models import Sheet
 from numpy import nan
 from models import Sheet
@@ -91,6 +92,8 @@ class Search():
 
     #produce complete_df with the input sheet as the last column
     def input_preprocess(self, in_filename,feature_of_interest):
+        print("1. Preprocessing input file...")
+        start_time = time.time()
         db_df = self.df_builder(feature_of_interest)
 
         if feature_of_interest == "EffVel":
@@ -110,27 +113,25 @@ class Search():
             complete_df = complete_df.dropna(thresh=0.95*len(complete_df.columns)).reset_index(drop=True).drop(range(0,20)).reset_index(drop=True)
             complete_df = complete_df.fillna(value = complete_df.mean(axis=0))
             complete_df = complete_df.sub(complete_df.mean(axis=0),axis=1)
-        
+        end_time = time.time()
+        print("     Time: {}".format(end_time - start_time))
         return complete_df
 
 
     #use cos_similarity to compare
     def compare_input_with_db(self, complete_df,feature_of_interest,top_x):
+        print("2. Comparing preprocessed file with DB...")
+        start_time = time.time()
         ratings={}
         result_dic={}
         for sheet in complete_df:
-            print("sheet in complete_df loop running!")
             if sheet != feature_of_interest:
-                print("sheet != feature_of_interest")
                 rating = cosine_similarity(complete_df[feature_of_interest].values.reshape(1, -1),complete_df[sheet].values.reshape(1, -1))
                 ratings[sheet] = {
                    "cosine_similarity_score": float(rating),
                 }
-                print("query performed.")
-            print()
         sorted_ratings = sorted(ratings.items(), key=lambda item: item[1]['cosine_similarity_score'], reverse=True)
         result = sorted_ratings[0:top_x] #Array of lists
-        print("result", result)
 
         #JSON building (if you want to add more metrics, add them here)
         for d in result:
@@ -145,7 +146,8 @@ class Search():
                 "pkDensity": float(query_result.pkdensity)
             }
             result_dic[d[0]] = metrics
-        
+        end_time = time.time()
+        print("     Time: {}".format(end_time - start_time))
         return result_dic
    
 
@@ -232,7 +234,6 @@ class Search():
         #print(slope)
         return slope
 
-
     def parse(self, s, deli):
         l = []
         temps = ''
@@ -249,7 +250,6 @@ class Search():
         return(l)
             
 
-
     def filt(self, input, l):
 
         '''
@@ -258,7 +258,8 @@ class Search():
         1) pos_vm_fhalf 3) pos_vm_shalf 5) avgmoe>2.0 6) avgsg > .545 
         7) avgmc > 4.95 8) avgvel > 5000  
         '''
-
+        print("3. Filtering...")
+        start_time = time.time()
         ipvmfh, ipvmsh, imoe, isg, imc, ivel, iupt, ithic, iden = 0, 0, 0, 0, 0, 0, 0, 0, 0
 
         #looking at input features
@@ -359,8 +360,9 @@ class Search():
 
             the_list.append(temp)
         
+        end_time = time.time()
+        print("     Time: {}".format(end_time - start_time))
         return([input_name,ipvmfh, ipvmsh, imoe, isg, imc, ivel, iupt, ithic, iden], the_list)
-
 
     def retrieveobt(self, inp, oup):
         for sheet in oup:
@@ -374,6 +376,8 @@ class Search():
                 return sheet
 
     def retrieveobo(self, inp, oup):
+        print("3. Retrieve OBO...")
+        start_time = time.time()
         for sheet in oup:
             i = 1
             obo = 0
@@ -383,25 +387,28 @@ class Search():
                 i+=1
             if obo < 2:
                 return sheet
+        end_time = time.time()
+        print("     Time: {}".format(end_time - start_time))
         return(self.retrieveobt(inp, oup))
 
 
     def identify(self, in_filename,feature_of_interest,top_x):
+        start_time = time.time()
         complete_df = self.input_preprocess(in_filename,feature_of_interest)
-        print("complete_df: ", complete_df)
+        # print("complete_df: ", complete_df)
         big_five = self.compare_input_with_db(complete_df,feature_of_interest,top_x)
-        print("big_five: ", big_five)
+        # print("big_five: ", big_five)
         inp, oup = self.filt(in_filename, big_five)
-        print("inp: ", inp)
-        print("oup: ", oup)
+        # print("inp: ", inp)
+        # print("oup: ", oup)
         the_one = self.retrieveobo(inp, oup)
-        print("the_one: ", the_one)
-
+        # print("the_one: ", the_one)
+        end_time = time.time()
+        print("Total Time: {}".format(end_time - start_time))
         return big_five, the_one[0]
 
 
     def analyze(input_file):
-        print(input_file)
         search = Search()
-        
+        print("Starting Pipeline")
         return search.identify(input_file,"EffVel",5)
