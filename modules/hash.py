@@ -100,4 +100,7 @@ if __name__ == "__main__":
         infile = open(in_filename)
 
         complete_df = input_preprocess(infile,feature_of_interest,baseline)
+        cos_sim = compare_input_with_db(complete_df,feature_of_interest)
+        print(cos_sim)
+        x = input()
 
