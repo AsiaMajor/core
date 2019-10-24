@@ -408,7 +408,6 @@ class Search():
         return big_five, the_one[0]
 
 
-    def analyze(input_file):
-        search = Search()
+    def analyze(self, input_file):
         print("Starting Pipeline")
-        return search.identify(input_file,"EffVel",5)
+        return self.identify(input_file,"EffVel",5)
