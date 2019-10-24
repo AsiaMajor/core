@@ -419,10 +419,11 @@ class Search():
 ######Hamming######
 
 result =[ ]
-with open('result.csv', newline='') as csv_file:
+with open('result.csv', newline='') as csv_file:      # reads input file from the same directory
     reader = csv.reader(csv_file,delimiter=',')
     for row in reader:
-        result.append(row)
+        result.append(row)               ## lines will be stored in List-List variable 'result'. format is same with inputSheet variable below
+        
 # inputSheet = ['1','1','0','0','0','0','0','1','1','1','1','1','0','1','1','1','sheet103_train_c.csv']
 # inputSheet = ['1','1','0','0','1','1','1','0','0','0','0','1','1','1','0','0','sheet123_train_c.csv']
 inputSheet = ['1','1','0','0','1','1','1','1','0','0','0','1','1','0','1','1','sheet34_train_b.csv']
@@ -430,27 +431,27 @@ inputSheet = ['1','1','0','0','1','1','1','1','0','0','0','1','1','0','1','1','s
 # a = time.time()
 # print(len(result))
 
-pivot = 0
+pivot = len(inputSheet)-1   # comparing value
 
-resultList = []
-print( result[0])
-for i in range(0, len(result)):
-    front = 0
-    back = len(inputSheet)-2 # last index before name
-    distance  = 0
+resultList = [] # this will store sheets that are similar with input sheet
+#print( result[0])
+for i in range(0, len(result)): # loop through all sheets in result.csv file
+    front = 0   # first binary feature
+    back = len(inputSheet)-2 # last index before name == last binary feature
+    distance  = 0       # here, the higher value distance is, the more difference they(input, result) have
     while ( front< back):
-        if( inputSheet[front] == result[i][front]):
-            distance += 1
-        if( inputSheet[back] == result[i][back]):
-            distance += 1
+        if( inputSheet[front] != result[i][front]): # compare same index feature from front
+            distance += 1 ## far
+        if( inputSheet[back] != result[i][back]):   # same, but from back
+            distance += 1 ## far
         front += 1
         back -= 1
-    if (distance >= pivot):
-        resultList.append(distance)
-        resultList.append(result[i][-1])
-        pivot = distance
+    if (distance <= pivot):         # is distnace less than pivot ? ( is it more identical?)
+        resultList.append(distance)    # yes, then append distance to resultList.
+        resultList.append(result[i][-1]) # with sheet name.
+        pivot = distance                # update pivot with distance value.
 b = time.time()
 
-for i in resultList:
+for i in resultList:        ## wanna see resultList?
     print(i)
 
