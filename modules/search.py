@@ -412,3 +412,45 @@ class Search():
         search = Search()
         print("Starting Pipeline")
         return search.identify(input_file,"EffVel",5)
+
+
+
+
+######Hamming######
+
+result =[ ]
+with open('result.csv', newline='') as csv_file:
+    reader = csv.reader(csv_file,delimiter=',')
+    for row in reader:
+        result.append(row)
+# inputSheet = ['1','1','0','0','0','0','0','1','1','1','1','1','0','1','1','1','sheet103_train_c.csv']
+# inputSheet = ['1','1','0','0','1','1','1','0','0','0','0','1','1','1','0','0','sheet123_train_c.csv']
+inputSheet = ['1','1','0','0','1','1','1','1','0','0','0','1','1','0','1','1','sheet34_train_b.csv']
+# inputSheet =['0','0','1','1','1','1','1','1','0','0','0','1','0','0','1','1','sheet14_train_c.csv']
+# a = time.time()
+# print(len(result))
+
+pivot = 0
+
+resultList = []
+print( result[0])
+for i in range(0, len(result)):
+    front = 0
+    back = len(inputSheet)-2 # last index before name
+    distance  = 0
+    while ( front< back):
+        if( inputSheet[front] == result[i][front]):
+            distance += 1
+        if( inputSheet[back] == result[i][back]):
+            distance += 1
+        front += 1
+        back -= 1
+    if (distance >= pivot):
+        resultList.append(distance)
+        resultList.append(result[i][-1])
+        pivot = distance
+b = time.time()
+
+for i in resultList:
+    print(i)
+
