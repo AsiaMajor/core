@@ -12,10 +12,9 @@ from decimal import Decimal
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
 
-class Search():
+class Search(object):
 
     def df_builder(self, feature_name):
-
         dict_of_features = {'avgmoe': Sheet.avgmoe, 'avgsg': Sheet.avgsg, 'avgmc': Sheet.avgsg, 'avgvel': Sheet.avgvel,
         'avgupt': Sheet.avgupt, 'pkdensity': Sheet.pkdensity, 'effvel': Sheet.effvel, 'lvel': Sheet.lvel, 'rvel': Sheet.rvel,
         'lupt': Sheet.lupt, 'rupt': Sheet.rupt, 'sg': Sheet.sg, 'mc': Sheet.mc}
@@ -410,4 +409,5 @@ class Search():
 
     def analyze(self, input_file):
         print("Starting Pipeline")
-        return self.identify(input_file,"EffVel",5)
+        big_five, the_one = self.identify(input_file,"EffVel",5)
+        return big_five, the_one
