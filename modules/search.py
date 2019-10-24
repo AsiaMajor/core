@@ -453,5 +453,5 @@ for i in range(0, len(result)): # loop through all sheets in result.csv file
 b = time.time()
 
 for i in resultList:        ## wanna see resultList?
-    print(i)
+    print(i) # here
 
