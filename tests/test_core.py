@@ -1,5 +1,4 @@
 import pytest
-from modules.ping import Ping
 
 def test_core_init():
     pass
