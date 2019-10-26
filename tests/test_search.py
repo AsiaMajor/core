@@ -1,9 +1,9 @@
 import pytest
-from modules.ping import Ping
-
+from modules.search_v2 import Search
 
 def test_init_mod():
-    pass
+    search_agent = Search()
+    assert search_agent is not None
 
 def test_fing_type():
     pass
