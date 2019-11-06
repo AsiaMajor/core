@@ -14,20 +14,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 class Controller():
 
-    def __init__(self, file):
-        self.file = file
+    def __init__(self, filepath):
+        self.filepath = filepath
 
     def get_result(self):
 
-        with open(self.file) as df:
-            r = csv.reader(df)
-
-            for i in r:
-                print(i)
-                break
-
-        return self.gen_hash_keys_fing(self.file)
+        return self.gen_hash_keys_fing(self.filepath)
         #return self.file.filename
+        #return self.filepath
 
     def get_wh_avg_std_data(self, sheet):
         l = []
@@ -40,7 +34,7 @@ class Controller():
         #path = 'dbfiles/' + sheet
 
         #with open(os.path.join(cwd, path)) as df:
-        with open('sheet57_train_a.csv') as df:
+        with open(sheet) as df:
             r = csv.reader(df)
             for row in r:
                 if i == 2:
@@ -142,9 +136,9 @@ class Controller():
     def gen_hash_keys_fing(self, sheet):
 
 
-        #filename = os.fsdecode(sheet)
+        filename = os.fsdecode(sheet)
         #print(filename)
-        filename = 'yuka'
+        #filename = 'yuka'
 
         wh_info, avgs, std = self.get_wh_avg_std_data(sheet)
         effv_col = self.get_n_column(wh_info, 1)
@@ -170,7 +164,10 @@ class Controller():
         euc_dist_sq = euc_dist * euc_dist
 
         #VALUE USED AS HASH KEY
-        hash_key = euc_dist_sq[:3]
+        print(euc_dist_sq)
+        yuka_v = str(euc_dist_sq)
+        hash_key = yuka_v[:3]
+        #hash_key = euc_dist_sq[:3]
 
 
         '''
@@ -257,13 +254,23 @@ class Controller():
 
         #return hash_key, fing
         temps = ''
-        temps += filename 
-        temps += ' : '
+        #temps += str(hash_key)
+        #temps += ' , '
+        #temps += filename 
+        #temps += ' : '
         temps = temps + str(pvmfh) + str(pvmsh) + str(pufh) + str(push) + str(bev) + str(mev) + str(tev)
         temps = temps + str(intqv) + str(intqu) + str(beu) + str(meu) + str(teu) + str(intqu) + str(moe)
         temps = temps + str(moe) + str(sg) + str(stdv) + str(stdu)
-        print(temps)
+        
+        tempd = {}
+        tempind = filename.find("/")
+        tempfn = filename[tempind+1:]
 
-        return 'bitch'
+        tempv = {}
+        tempv['filename'] = tempfn
+        tempv['hashkey'] = hash_key
+        tempv['fingerprint'] = temps
+
+        return tempv
 
 
