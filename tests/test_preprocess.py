@@ -1,8 +1,11 @@
 import pytest
-#from modules.search import Search
-#from modules.preprocess import PreProcess
+from modules import preprocess
 import pandas as pd
 import numpy as np
+
+# def test_PreProcess_init():
+#     preprocess_agent = preprocess.Controller()
+#     assert preprocess_agent is not None
 
 def test_init_globals_avg():
     '''test global vaerages generated for fingerprinting'''
