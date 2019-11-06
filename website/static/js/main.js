@@ -19,7 +19,7 @@ $(document).ready(function(){
       var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://localhost:5000/api/analyze",
+        "url": backendURL+"/api/analyze",
         "method": "POST",
         "processData": false,
         "contentType": false,

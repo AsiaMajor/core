@@ -12,7 +12,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-class PreProcess():
+class Controller():
+
+    def __init__(self, file):
+        self.file = file
+
+    def get_result(self):
+        return self.file.filename
 
     def get_wh_avg_std_data(self, sheet):
         l = []
