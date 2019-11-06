@@ -20,8 +20,6 @@ class Controller():
     def get_result(self):
 
         return self.gen_hash_keys_fing(self.filepath)
-        #return self.file.filename
-        #return self.filepath
 
     def get_wh_avg_std_data(self, sheet):
         l = []
@@ -30,10 +28,6 @@ class Controller():
         i = 0
         end = 0
 
-        #cwd = os.getcwd()
-        #path = 'dbfiles/' + sheet
-
-        #with open(os.path.join(cwd, path)) as df:
         with open(sheet) as df:
             r = csv.reader(df)
             for row in r:
@@ -48,9 +42,6 @@ class Controller():
                     end = 1
                 i += 1
     
-
-        #print(len(l))
-        #print(l[-5:])
         return l, avg, std
 
 
@@ -60,7 +51,6 @@ class Controller():
 
         for row in l:
             if len(row) == 7:
-                #col.append(row[n])
                 try:
                     t = float(row[n])
                     col.append(t)
@@ -137,8 +127,6 @@ class Controller():
 
 
         filename = os.fsdecode(sheet)
-        #print(filename)
-        #filename = 'yuka'
 
         wh_info, avgs, std = self.get_wh_avg_std_data(sheet)
         effv_col = self.get_n_column(wh_info, 1)
@@ -167,7 +155,6 @@ class Controller():
         print(euc_dist_sq)
         yuka_v = str(euc_dist_sq)
         hash_key = yuka_v[:3]
-        #hash_key = euc_dist_sq[:3]
 
 
         '''
@@ -249,15 +236,10 @@ class Controller():
             stdu = 1
         
 
-        fing = [filename, [pvmfh, pvmsh, pufh, push, bev, mev, tev, intqv, beu, meu, teu, intqu, moe, sg, stdv, stdu]]
-
-
+        #fing = [filename, [pvmfh, pvmsh, pufh, push, bev, mev, tev, intqv, beu, meu, teu, intqu, moe, sg, stdv, stdu]]
         #return hash_key, fing
+
         temps = ''
-        #temps += str(hash_key)
-        #temps += ' , '
-        #temps += filename 
-        #temps += ' : '
         temps = temps + str(pvmfh) + str(pvmsh) + str(pufh) + str(push) + str(bev) + str(mev) + str(tev)
         temps = temps + str(intqv) + str(intqu) + str(beu) + str(meu) + str(teu) + str(intqu) + str(moe)
         temps = temps + str(moe) + str(sg) + str(stdv) + str(stdu)
