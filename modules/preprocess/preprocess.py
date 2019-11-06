@@ -14,11 +14,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 class Controller():
 
-    def __init__(self, file):
-        self.file = file
+    def __init__(self, filepath):
+        self.filepath = filepath
 
     def get_result(self):
-        return self.file.filename
+        return self.filepath
 
     def get_wh_avg_std_data(self, sheet):
         l = []

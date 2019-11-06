@@ -1,3 +1,4 @@
+import os
 from flask import Blueprint, request
 from .forms import ResponseForm
 from modules import ping, preprocess
@@ -15,5 +16,6 @@ def PingController():
 def preprocessController():
     res = ResponseForm()
     file = request.files['file']
-    res.result = preprocess.Controller(file).get_result()
+    file.save(os.path.join('tmp/', file.filename))
+    res.result = preprocess.Controller(os.path.join('tmp/', file.filename)).get_result()
     return res.__dict__
