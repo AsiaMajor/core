@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint, request
 from .forms import ResponseForm
-from modules import ping, preprocess
+from modules import ping, preprocess, search
 
 api_routes = Blueprint('api', __name__)
 
@@ -18,4 +18,10 @@ def preprocessController():
     file = request.files['file']
     file.save(os.path.join('tmp/', file.filename))
     res.result = preprocess.Controller(os.path.join('tmp/', file.filename)).get_result()
+    return res.__dict__
+
+@api_routes.route('/api/search', methods=['POST'])
+def searchController():
+    res = ResponseForm()
+    file = request['fingerprint']
     return res.__dict__
