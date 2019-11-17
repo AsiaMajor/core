@@ -10,16 +10,17 @@ import numpy as np
 def test_init_globals_avg():
     '''test global averages generated for fingerprinting'''
     # pass
-    sheet = [0,1,2,3,4,5,6,7,8,9]
-    l,avg,std = PreProcess.get_wh_avg_std_data(sheet)
+    path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    sheet = preprocess.Controller(path)
+    l,avg,std = sheet.get_wh_avg_std_data(path)
     
-    assert l is list
-    assert avg is list
-    assert std is list
+    assert type(l) is list
+    assert type(avg) is list
+    assert type(std) is list
 
-    assert l[0] is float
-    assert avg[0] is float
-    assert std[0] is float
+    assert type(l[0][0]) is str
+    assert type(avg[0][0]) is str
+    assert type(std[0][0]) is str
 
     
 def test_retrive_wheel_data():
