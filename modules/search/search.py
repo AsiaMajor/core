@@ -34,9 +34,9 @@ class Controller():
         return distance
 
     def get_result(self):
-
-
         buckets = self.conn.hgetall(self.hash_key)
+
+        
         return "yuka"
 
 
