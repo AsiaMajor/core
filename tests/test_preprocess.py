@@ -50,7 +50,6 @@ def test_preprrocessing_new_sheet():
     data = np.random.randint(low=1, high=100, size=100)
     t3,t50,t97 = sheet.process_new_sheet(data)
 
-    assert type(t3) is np.int32
-    assert type(t50) is np.float64
-    assert type(t97) is np.int32
+    assert t3<t50
+    assert t50<t97
     
