@@ -25,13 +25,15 @@ def test_init_globals_avg():
     
 def test_retrive_wheel_data():
     ''' test if the wheel data is correctly read in from db'''
-    pass
-    # col_num = 0
-    # df = pd.DataFrame([[1,2,3,4,5],[6,7,8,9,10]])
-    # out = PreProcess.get_n_column(df,col_num)
+    # pass
+    col_num = 0
+    path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    sheet = preprocess.Controller(path)
+    df = [[1,2,3,4,5,6,7],[6,7,8,9,10,11,12]]
+    out = sheet.get_n_column(df,col_num)
 
-    # assert out is list
-    # assert out[0] is float
+    assert type(out) is list
+    assert type(out[0]) is float
 
 
 # def test_retrive_column_data():
