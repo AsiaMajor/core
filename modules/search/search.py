@@ -50,7 +50,7 @@ class Controller():
         final_bucket.update(downbucket)
 
         first = 100
-        topsheets = []
+        topsheets = {}
         theSheet = ()
 
         for key,val in final_bucket.items():
@@ -60,5 +60,11 @@ class Controller():
             if dist < first:
                 theSheet = (name, fin, dist)
                 first = dist
+            topsheets[name] = dist
+            
+        sortedsh = sorted(topsheets.items(), key=lambda kv: kv[1])
 
-        return theSheet[0]
+        return {
+            "predicted": theSheet[0],
+            "top_five": sortedsh
+        }
