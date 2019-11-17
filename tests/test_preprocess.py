@@ -5,18 +5,18 @@ import pandas as pd
 import numpy as np
 
 def test_init_globals_avg():
-    '''test global vaerages generated for fingerprinting'''
-    pass
-    # sheet = [0,1,2,3,4,5,6,7,8,9]
-    # l,avg,std = PreProcess.get_wh_avg_std_data(sheet)
+    '''test global averages generated for fingerprinting'''
+    # pass
+    sheet = [0,1,2,3,4,5,6,7,8,9]
+    l,avg,std = PreProcess.get_wh_avg_std_data(sheet)
     
-    # assert l is list
-    # assert avg is list
-    # assert std is list
+    assert l is list
+    assert avg is list
+    assert std is list
 
-    # assert l[0] is float
-    # assert avg[0] is float
-    # assert std[0] is float
+    assert l[0] is float
+    assert avg[0] is float
+    assert std[0] is float
 
     
 def test_retrive_wheel_data():
