@@ -4,9 +4,12 @@ import csv
 import redis
 import hashlib
 
+
+
+
 class Controller():
 
-    def init(self, hash_key, fingerprint, sheet_name):
+    def __init__ (self, hash_key, sheet_name, fingerprint):
         self.hash_key = hash_key
         self.fingerprint = fingerprint
         self.sheet_name = sheet_name
@@ -31,4 +34,34 @@ class Controller():
         return distance
 
     def get_result(self):
-        return 1
+
+
+        buckets = self.conn.hgetall(self.hash_key)
+        return "yuka"
+
+
+
+        # candidates = []
+        # distance = len(input1) 
+        # returnedDistance =0
+        # print(input1)
+        # for i in dataList:
+        #     temFingerprint = r.hget(databaseName,i).decode('utf-8') # fingerprint
+        #     returnedDistance = hamming(input1,temFingerprint)
+        #     if returnedDistance <= distance:
+        #         distance = returnedDistance # update pivot
+        #         candidates.append(i+" "+temFingerprint+" "+str(distance) )
+        #     #print(input1,temFingerprint,distance)
+
+        # print(len(candidates))  
+        # for i in candidates:
+        #     print(i) # testing.
+
+
+# f = open('final_csv').readlines()
+# data = []
+# for line in f:
+#     data.append(line.replace('\n', '').split(','))
+
+# for sheet_data in data:
+#     conn.hset(sheet_data[0], sheet_data[2], sheet_data[1])
