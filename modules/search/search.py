@@ -30,17 +30,5 @@ class Controller():
             back -= 1
         return distance
 
-    # def return_sheet(self, input1):
-    #     candidates = []
-    #     distance = len(input1) 
-    #     returnedDistance =0
-    #     print(input1)
-    #     for i in dataList:
-    #         temFingerprint = r.hget(databaseName,i).decode('utf-8') # fingerprint
-    #         returnedDistance = hamming(input1,temFingerprint)
-    #         if returnedDistance <= distance:
-    #             distance = returnedDistance # update pivot
-    #             candidates.append(i+" "+temFingerprint+" "+str(distance) )
-    #         #print(input1,temFingerprint,distance)
-
-    #     print(len(candidates))
+    def get_result(self):
+        return 1

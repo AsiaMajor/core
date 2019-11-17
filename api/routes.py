@@ -23,5 +23,8 @@ def preprocessController():
 @api_routes.route('/api/search', methods=['POST'])
 def searchController():
     res = ResponseForm()
-    file = request['fingerprint']
+    hash_key = request.get_json()['hash_key']
+    sheet_name = request.get_json()['sheet_name']
+    fingerprint = request.get_json()['fingerprint']
+    res.result = search.Controller(hash_key, sheet_name, fingerprint).get_result()
     return res.__dict__
