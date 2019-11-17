@@ -43,7 +43,14 @@ def test_retrive_wheel_data():
 
 def test_preprrocessing_new_sheet():
     ''' test if the thresh is properly preprocessed'''
-    pass
-    # data = pd.DataFrame(range(1,101))
-    #3_percent,50_percent,97_percent = ()
+    #pass
+    #data = pd.DataFrame(range(1,101))
+    path = "tests/sheet17_train_b.csv"
+    sheet = preprocess.Controller(path)
+    data = np.random.randint(low=1, high=100, size=100)
+    t3,t50,t97 = sheet.process_new_sheet(data)
+
+    assert type(t3) is np.int32
+    assert type(t50) is np.float64
+    assert type(t97) is np.int32
     
