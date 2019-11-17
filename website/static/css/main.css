@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'Neue Haas Grotesk Text Pro Roman';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Neue Haas Grotesk Text Pro Roman'), url('font/NHaasGroteskTXPro-55Rg.woff') format('woff');
+}
+  
+@font-face {
+    font-family: 'Neue Haas Grotesk Text Pro Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Neue Haas Grotesk Text Pro Bold'), url('font/NHaasGroteskTXPro-75Bd.woff') format('woff');
+}
+  
+html {
+    width: 100%;
+}
+
+body {
+    font-family: 'Neue Haas Grotesk Text Pro Roman';
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Neue Haas Grotesk Text Pro Bold';
+}
+
+.headers {
+    margin-top: 10%;
+}
+
+.headers h1{
+    font-size: 5em;
+}
+
+.tagline{
+    font-size: 2em;
+}
+
+.input{
+    position: relative;
+    height: 300px;
+    width: 30000px;
+    border: 4px dashed black;
+}
+
+form p{
+    margin-top: -150px;
+    font-size: 1em;
+    text-align: center;
+    opacity: 0.7;
+}
+
+form input{
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+}
+
+a .home-link{
+    text-decoration: none;
+}
+
+.loader {
+    position: relative;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 0.5s linear infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

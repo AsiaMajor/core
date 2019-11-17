@@ -16,13 +16,13 @@ We are in a mission to detect a veneer sheet in 0.5 seconds. We develop:
 $ git clone https://github.com/AsiaMajor/core
 $ cd core/
 $ virtualenv env && source env/bin/activate
-$ pip install requirements.txt
-$ FLASK_APP=app.py FLASK_DEBUG=1 flask run
+$ pip install -r requirements.txt
+$ python server.py
 ```
 
 ## API endpoints:
 * `/api/ping` with method `GET`
-* `/api/analyze` with method `POST`
+* `/api/preprocess` with method `POST`
 
 ## Team:
 - @YukaLangbuana
