@@ -10,7 +10,8 @@ import numpy as np
 def test_init_globals_avg():
     '''test global averages generated for fingerprinting'''
     # pass
-    path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    #path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    path = "./sheet17_train_b.csv"
     sheet = preprocess.Controller(path)
     l,avg,std = sheet.get_wh_avg_std_data(path)
     
@@ -27,7 +28,8 @@ def test_retrive_wheel_data():
     ''' test if the wheel data is correctly read in from db'''
     # pass
     col_num = 0
-    path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    #path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    path = "./sheet17_train_b.csv"
     sheet = preprocess.Controller(path)
     df = [[1,2,3,4,5,6,7],[6,7,8,9,10,11,12]]
     out = sheet.get_n_column(df,col_num)
