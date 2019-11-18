@@ -2,7 +2,7 @@ import pytest
 from modules import preprocess
 import pandas as pd
 import numpy as np
-
+from api.routes import preprocessController
 # def test_PreProcess_init():
 #     preprocess_agent = preprocess.Controller()
 #     assert preprocess_agent is not None
@@ -53,3 +53,14 @@ def test_preprrocessing_new_sheet():
     assert t3<t50
     assert t50<t97
     
+def test_core_fileinput():
+    path1 = "tests/test_sample/sheet17_train_b.pdf"
+    res1 = preprocessController(path1)
+
+    path2 = "tests/test_sample/sheet17_train_b.csv"
+    res2 = preprocessController(path2)
+
+    assert res1['result'] == 'Failed'
+    assert res2['result'] == 'Success'
+
+    #pass

@@ -25,5 +25,4 @@ def test_core_apiresponse():
     assert res.success == True
 
 
-def test_core_fileinput():
-    pass
+
