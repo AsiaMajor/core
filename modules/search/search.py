@@ -51,7 +51,7 @@ class Controller():
 
         first = 100
         topsheets = {}
-        theSheet = ()
+        theSheet = (0,0,0)
 
         print('in: ', self.fingerprint, self.sheet_name)
         for key,val in final_bucket.items():
