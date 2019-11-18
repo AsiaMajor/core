@@ -3,6 +3,8 @@ import os
 import sys
 from server import init_app
 from flask import Flask
+from api.forms import ResponseForm
+from modules import ping, preprocess
 
 def test_core_init():
     '''test flask init'''
@@ -16,7 +18,12 @@ def test_core_dbconn():
     pass
 
 def test_core_apiresponse():
-    pass
+    #pass
+    res = ResponseForm()
+    res.result = ping.Controller().mock()
+    assert res.result == "Pong!"
+    assert res.success == True
+
 
 def test_core_fileinput():
     pass
