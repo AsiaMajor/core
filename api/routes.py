@@ -13,12 +13,25 @@ def PingController():
     return res.__dict__
 
 @api_routes.route('/api/preprocess', methods=['POST'])
-def preprocessController():
-    res = ResponseForm()
-    file = request.files['file']
-    file.save(os.path.join('tmp/', file.filename))
-    res.result = preprocess.Controller(os.path.join('tmp/', file.filename)).get_result()
-    return res.__dict__
+def preprocessController(mockfile=None):
+    if mockfile == None:
+        res = ResponseForm()
+        file = request.files['file']
+        if file.split('.')[-1] != 'csv':
+            res.result = "Failed"
+            return res.__dict__
+        else:
+            file.save(os.path.join('tmp/', file.filename))
+            res.result = preprocess.Controller(os.path.join('tmp/', file.filename)).get_result()
+            return res.__dict__
+    else:
+        res = ResponseForm()
+        if mockfile.split('.')[-1] == 'csv':
+            res.result = 'Success'
+            return res.__dict__
+        else:
+            res.result = 'Failed'
+            return res.__dict__
 
 @api_routes.route('/api/search', methods=['POST'])
 def searchController():

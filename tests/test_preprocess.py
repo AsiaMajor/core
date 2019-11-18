@@ -2,35 +2,40 @@ import pytest
 from modules import preprocess
 import pandas as pd
 import numpy as np
-
+from api.routes import preprocessController
 # def test_PreProcess_init():
 #     preprocess_agent = preprocess.Controller()
 #     assert preprocess_agent is not None
 
 def test_init_globals_avg():
-    '''test global vaerages generated for fingerprinting'''
-    pass
-    # sheet = [0,1,2,3,4,5,6,7,8,9]
-    # l,avg,std = PreProcess.get_wh_avg_std_data(sheet)
+    '''test global averages generated for fingerprinting'''
+    # pass
+    #path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    path = "tests/test_sample/sheet17_train_b.csv"
+    sheet = preprocess.Controller(path)
+    l,avg,std = sheet.get_wh_avg_std_data(path)
     
-    # assert l is list
-    # assert avg is list
-    # assert std is list
+    assert type(l) is list
+    assert type(avg) is list
+    assert type(std) is list
 
-    # assert l[0] is float
-    # assert avg[0] is float
-    # assert std[0] is float
+    assert type(l[0][0]) is str
+    assert type(avg[0][0]) is str
+    assert type(std[0][0]) is str
 
     
 def test_retrive_wheel_data():
     ''' test if the wheel data is correctly read in from db'''
-    pass
-    # col_num = 0
-    # df = pd.DataFrame([[1,2,3,4,5],[6,7,8,9,10]])
-    # out = PreProcess.get_n_column(df,col_num)
+    # pass
+    col_num = 0
+    #path = "C:/git_repo/core/tests/sheet17_train_b.csv"
+    path = "tests/test_sample/sheet17_train_b.csv"
+    sheet = preprocess.Controller(path)
+    df = [[1,2,3,4,5,6,7],[6,7,8,9,10,11,12]]
+    out = sheet.get_n_column(df,col_num)
 
-    # assert out is list
-    # assert out[0] is float
+    assert type(out) is list
+    assert type(out[0]) is float
 
 
 # def test_retrive_column_data():
@@ -38,7 +43,24 @@ def test_retrive_wheel_data():
 
 def test_preprrocessing_new_sheet():
     ''' test if the thresh is properly preprocessed'''
-    pass
-    # data = pd.DataFrame(range(1,101))
-    #3_percent,50_percent,97_percent = ()
+    #pass
+    #data = pd.DataFrame(range(1,101))
+    path = "tests/test_sample/sheet17_train_b.csv"
+    sheet = preprocess.Controller(path)
+    data = np.random.randint(low=1, high=100, size=100)
+    t3,t50,t97 = sheet.process_new_sheet(data)
+
+    assert t3<t50
+    assert t50<t97
     
+def test_core_fileinput():
+    path1 = "tests/test_sample/sheet17_train_b.pdf"
+    res1 = preprocessController(path1)
+
+    path2 = "tests/test_sample/sheet17_train_b.csv"
+    res2 = preprocessController(path2)
+
+    assert res1['result'] == 'Failed'
+    assert res2['result'] == 'Success'
+
+    #pass
