@@ -1,21 +1,21 @@
 import pytest
 from modules import search
-import redis
+# import redis
 
     
 
-f = open("tests/final.csv").readlines()
+# f = open("tests/final.csv").readlines()
 
-data = []
-for line in f:
-      data.append(line.replace('\n', '').split(','))
-conn = redis.StrictRedis(host="localhost", port=6379, db=2)
-for sheet in data[1:]:
-     res = conn.hset(sheet[0], sheet[1], sheet[2])
-     if res == 0:
-             print(sheet, "NOT INSERTED")
-     else:
-             print(sheet, "OK")
+# data = []
+# for line in f:
+#       data.append(line.replace('\n', '').split(','))
+# conn = redis.StrictRedis(host="localhost", port=6379, db=2)
+# for sheet in data[1:]:
+#      res = conn.hset(sheet[0], sheet[1], sheet[2])
+#      if res == 0:
+#              print(sheet, "NOT INSERTED")
+#      else:
+#              print(sheet, "OK")
 
 
 """
@@ -82,10 +82,10 @@ def test_result_candidates_none_null(): #check if it also gives candidates of ma
     testV = testClass.get_result()
     assert testV["top_five"] != []
 
-def test_name_of_result_with_real_data(): # test real data with database.
-    realV = realClass.get_result()
-    assert realV["predicted"] == "sheet6_train_b.csv" 
+# def test_name_of_result_with_real_data(): # test real data with database.
+#     realV = realClass.get_result()
+#     assert realV["predicted"] == "sheet6_train_b.csv" 
 
-def test_candidates_of_result_with_real_data():
-    realV = realClass.get_result()
-    assert len(realV["top_five"]) >= 1
+# def test_candidates_of_result_with_real_data():
+#     realV = realClass.get_result()
+#     assert len(realV["top_five"]) >= 1
