@@ -63,24 +63,24 @@ def test_database_connection_none_null():   # checks if the databse is conncecte
     assert testClass.conn != None
     
 
-def test_result_none_null():    # checks if the get_result() returns result
-    testV = testClass.get_result()
-    assert testV != None
+# def test_result_none_null():    # checks if the get_result() returns result
+#     testV = testClass.get_result()
+#     assert testV != None
 
 
-def test_result_bucket_type():  # check the return type == dict
-    testV = testClass.get_result() 
-    assert type(testV) == dict
+# def test_result_bucket_type():  # check the return type == dict
+#     testV = testClass.get_result() 
+#     assert type(testV) == dict
 
 
-def test_result_sheet_none_null(): # check if it returns matching sheet name
-    testV = testClass.get_result()
-    assert testV["predicted"] != None
+# def test_result_sheet_none_null(): # check if it returns matching sheet name
+#     testV = testClass.get_result()
+#     assert testV["predicted"] != None
 
 
-def test_result_candidates_none_null(): #check if it also gives candidates of matching sheets.
-    testV = testClass.get_result()
-    assert testV["top_five"] != []
+# def test_result_candidates_none_null(): #check if it also gives candidates of matching sheets.
+#     testV = testClass.get_result()
+#     assert testV["top_five"] != []
 
 # def test_name_of_result_with_real_data(): # test real data with database.
 #     realV = realClass.get_result()
