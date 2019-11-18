@@ -4,16 +4,13 @@ import csv
 import redis
 import hashlib
 
-
-
-
 class Controller():
 
     def __init__ (self, hash_key, sheet_name, fingerprint):
         self.hash_key = hash_key
         self.fingerprint = fingerprint
         self.sheet_name = sheet_name
-        self.conn = redis.StrictRedis(host="localhost", port=6379, db=0)
+        self.conn = redis.StrictRedis(host="localhost", port=6379, db=2)
 
     def hamming(self, a, b): # a == input fingerprint,  b == fingerprint from databasei
         # print(len(a),len(b))
@@ -34,34 +31,44 @@ class Controller():
         return distance
 
     def get_result(self):
-        buckets = self.conn.hgetall(self.hash_key)
+        mainbucket = self.conn.hgetall(self.hash_key)
+        upbucket = {}
+        downbucket = {}
+        final_bucket = {}
 
-        
-        return "yuka"
+        try:
+            upbucket = self.conn.hgetall(str(int(self.hash_key)+1))
+        except:
+            upbucket = {}
+        try:
+            downbucket = self.conn.hgetall(str(int(self.hash_key)-1))
+        except:
+            downbucket = {}
 
+        final_bucket = mainbucket.copy()
+        final_bucket.update(upbucket)
+        final_bucket.update(downbucket)
 
+        first = 100
+        topsheets = {}
+        theSheet = (0,0,0)
 
-        # candidates = []
-        # distance = len(input1) 
-        # returnedDistance =0
-        # print(input1)
-        # for i in dataList:
-        #     temFingerprint = r.hget(databaseName,i).decode('utf-8') # fingerprint
-        #     returnedDistance = hamming(input1,temFingerprint)
-        #     if returnedDistance <= distance:
-        #         distance = returnedDistance # update pivot
-        #         candidates.append(i+" "+temFingerprint+" "+str(distance) )
-        #     #print(input1,temFingerprint,distance)
+        print('in: ', self.fingerprint, self.sheet_name)
+        for key,val in final_bucket.items():
+            fin = val.decode("utf-8")
+            name = key.decode("utf-8")
 
-        # print(len(candidates))  
-        # for i in candidates:
-        #     print(i) # testing.
+            dist = self.hamming(self.fingerprint, fin)
+    
+            if dist < first:
+                theSheet = (name, fin, dist)
+                first = dist
+            topsheets[name] = dist
 
+        sortedsh = sorted(topsheets.items(), key=lambda kv: kv[1])
 
-# f = open('final_csv').readlines()
-# data = []
-# for line in f:
-#     data.append(line.replace('\n', '').split(','))
-
-# for sheet_data in data:
-#     conn.hset(sheet_data[0], sheet_data[2], sheet_data[1])
+        return {
+            "predicted": theSheet[0],
+            "top_five": sortedsh
+        }
+       
