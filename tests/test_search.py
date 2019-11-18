@@ -4,7 +4,7 @@ import redis
 
     
 
-f = open("final.csv").readlines()
+f = open("tests/final.csv").readlines()
 
 data = []
 for line in f:
@@ -17,7 +17,7 @@ for sheet in data[1:]:
      else:
              print(sheet, "OK")
 
-             
+
 """
 commnad : python3 -m pytest test_search.py 
 """
