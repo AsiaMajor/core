@@ -53,18 +53,22 @@ class Controller():
         topsheets = {}
         theSheet = ()
 
+        print('in: ', self.fingerprint, self.sheet_name)
         for key,val in final_bucket.items():
-            fin = key.decode("utf-8")
-            name = val.decode("utf-8")
+            fin = val.decode("utf-8")
+            name = key.decode("utf-8")
+
             dist = self.hamming(self.fingerprint, fin)
+    
             if dist < first:
                 theSheet = (name, fin, dist)
                 first = dist
             topsheets[name] = dist
-            
+
         sortedsh = sorted(topsheets.items(), key=lambda kv: kv[1])
 
         return {
             "predicted": theSheet[0],
             "top_five": sortedsh
         }
+       
