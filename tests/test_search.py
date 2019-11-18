@@ -34,7 +34,7 @@ sheet5_train_b_csv = "1001111000011000"
 sheet6_train_b_csv = "1100111000011100"
 
 # realTestData_Sheet6_train_b.csv = "1100111000011100"
-realClass = search.Controller(234,"input6","1100111000011100")
+# realClass = search.Controller(234,"input6","1100111000011100")
 
 
 
