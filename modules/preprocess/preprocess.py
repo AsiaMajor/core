@@ -18,7 +18,6 @@ class Controller():
         self.filepath = filepath
 
     def get_result(self):
-
         return self.gen_hash_keys_fing(self.filepath)
 
     def get_wh_avg_std_data(self, sheet):

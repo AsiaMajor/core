@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint, request
 from .forms import ResponseForm
-from modules import ping, preprocess, search
+from modules import ping, preprocess, search, analyze
 
 api_routes = Blueprint('api', __name__)
 
@@ -10,6 +10,14 @@ api_routes = Blueprint('api', __name__)
 def PingController():
     res = ResponseForm()
     res.result = ping.Controller().mock()
+    return res.__dict__
+
+@api_routes.route('/api/analyze', methods=['POST'])
+def analyzeController():
+    res = ResponseForm()
+    file = request.files['file']
+    file.save(os.path.join('tmp/', file.filename))
+    res.result = analyze.Controller(os.path.join('tmp/', file.filename)).get_result()
     return res.__dict__
 
 @api_routes.route('/api/preprocess', methods=['POST'])
