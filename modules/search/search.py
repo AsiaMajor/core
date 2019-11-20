@@ -53,7 +53,6 @@ class Controller():
         topsheets = {}
         theSheet = (0,0,0)
 
-        print('in: ', self.fingerprint, self.sheet_name)
         for key,val in final_bucket.items():
             fin = val.decode("utf-8")
             name = key.decode("utf-8")

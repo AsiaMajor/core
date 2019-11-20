@@ -151,7 +151,6 @@ class Controller():
         euc_dist_sq = euc_dist * euc_dist
 
         #VALUE USED AS HASH KEY
-        print(euc_dist_sq)
         yuka_v = str(euc_dist_sq)
         hash_key = yuka_v[:3]
 
