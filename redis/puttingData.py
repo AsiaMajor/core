@@ -5,7 +5,7 @@ import redis
 
 
 # on local
-f = open("final.csv").readlines()
+f = open("../scripts/final.csv").readlines()
 data = []
 for line in f:
       data.append(line.replace('\n', '').split(','))
