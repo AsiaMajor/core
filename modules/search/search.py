@@ -70,6 +70,7 @@ class Controller():
                 "name": "",
                 "hamming_distance": 0,
                 "priority": 0,
+                "fingerprint": ""
             }
 
             dist = self.hamming(self.fingerprint, fin)
@@ -90,6 +91,7 @@ class Controller():
             form["name"] = name
             form["hamming_distance"] = dist
             form["priority"] = priority
+            form["fingerprint"] = fin
             topsheets.append(form)
 
 
