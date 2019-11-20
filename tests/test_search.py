@@ -2,8 +2,6 @@ import pytest
 from modules import search
 # import redis
 
-    
-
 # f = open("tests/final.csv").readlines()
 
 # data = []
