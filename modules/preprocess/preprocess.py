@@ -301,7 +301,7 @@ class Controller():
         temps = temps + str(pvmfh) + str(pvmsh) + str(pufh) + str(push) + str(bev) + str(mev) + str(tev)
         temps = temps + str(intqv) + str(beu) + str(meu) + str(teu) + str(intqu) 
         temps = temps + str(moe) + str(sg) + str(stdv) + str(stdu)
-        temps = temps + str(cav2) + str(cav3) 
+        temps = temps + str(cav4) + str(cav5) + str(cav6)
 
         tempind = filename.find("/")
         tempfn = filename[tempind+1:]
