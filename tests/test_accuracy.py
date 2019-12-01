@@ -8,15 +8,20 @@ def test_analyze_accuracy():
     for file in os.listdir('./tests/test_csv'):
         loop += 1
         control_analyze = analyze.Controller('./tests/test_csv/'+file).get_result()
-        # if str(file).split('_')[0] == str(control_analyze['predicted']).split('_')[0]:
-        #     accuracy += 1
-        for item in control_analyze['top_five']:
-            if str(file).split('_')[0] == item['name'].split('_')[0]:
-                accuracy += 1
-                break
-        print(file, control_analyze)
-        print()
+
+        #CHECK TOP PREDICTED SHEET
+        if str(file).split('_')[0] == str(control_analyze['predicted']).split('_')[0]:
+            accuracy += 1
+        
+        #CHECK TOP FIVE SHEETS
+        # for item in control_analyze['top_five']:
+        #     if str(file).split('_')[0] == item['name'].split('_')[0]:
+        #         accuracy += 1
+        #         break
+        #     else:
+        #         print(file, control_analyze)
+        #         print()
 
     print(accuracy/loop*100)
             
-    # assert accuracy/loop*100 > 50
+    assert accuracy/loop*100 > 50

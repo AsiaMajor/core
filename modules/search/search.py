@@ -3,6 +3,7 @@ import time
 import csv
 import redis
 import hashlib
+import numpy as np
 
 class Controller():
 
@@ -29,6 +30,50 @@ class Controller():
             front += 1
             back -= 1
         return distance
+    
+    def levensthein(self, seq1, seq2):
+        seq1 = list(map(int, [num for num in seq1]))
+        seq2 = list(map(int, [num for num in seq2]))
+        size_x = len(seq1) + 1
+        size_y = len(seq2) + 1
+        matrix = np.zeros((size_x, size_y))
+        for x in range(size_x):
+            matrix [x, 0] = x
+        for y in range(size_y):
+            matrix [0, y] = y
+        for x in range(1, size_x):
+            for y in range(1, size_y):
+                if seq1[x-1] == seq2[y-1]:
+                    matrix [x,y] = min(
+                        matrix[x-1, y] + 1,
+                        matrix[x-1, y-1],
+                        matrix[x, y-1] + 1
+                    )
+                else:
+                    matrix [x,y] = min(
+                        matrix[x-1,y] + 1,
+                        matrix[x-1,y-1] + 1,
+                        matrix[x,y-1] + 1
+                    )
+        return int(matrix[size_x - 1, size_y - 1])
+    
+    def cosine_sim(self, seq1, seq2):
+        seq1 = list(map(int, [num for num in seq1]))
+        seq2 = list(map(int, [num for num in seq2]))
+        cos_sim = np.dot(seq1, seq2)/(np.linalg.norm(seq1), np.linalg.norm(seq2))
+        return cos_sim.any()
+
+    def euclidean(self, seq1, seq2):
+        seq1 = list(map(int, [num for num in seq1]))
+        seq2 = list(map(int, [num for num in seq2]))
+        return np.linalg.norm(np.array(seq1)-np.array(seq2))
+    
+    def jaccard_similarity(self, list1, list2):
+        list1 = list(map(int, [num for num in list1]))
+        list2 = list(map(int, [num for num in list2]))
+        intersection = len(list(set(list1).intersection(list2)))
+        union = (len(list1) + len(list2)) - intersection
+        return float(intersection) / union
 
     def get_result(self):
         mainbucket = self.conn.hgetall(self.hash_key)
@@ -89,16 +134,19 @@ class Controller():
                 priority = 4
 
             form["name"] = name
-            form["hamming_distance"] = dist
+            form["hamming"] = dist
             form["priority"] = priority
             form["fingerprint"] = fin
             topsheets.append(form)
 
-
-        sortedsh = sorted(topsheets, key = lambda i: (i['priority'], i['hamming_distance']))
-
+        sortedsh = sorted(topsheets, key = lambda i: (i['hamming'], i['priority']))
+        try:
+            theSheet = sortedsh[0]['name']
+        except:
+            theSheet = theSheet
         return {
-            "predicted": theSheet[0],
-            "top_five": sortedsh
+            "input_fingerprint": self.fingerprint,
+            "predicted": theSheet,
+            "top_five": sortedsh[:5]
         }
        
