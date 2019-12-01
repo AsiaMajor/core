@@ -43,6 +43,35 @@ class Controller():
     
         return l, avg, std
 
+    def get_cavity_data(self, sheet):
+        l = []
+
+        with open(sheet) as df:
+            r = csv.reader(df)
+            start = 0
+            for row in r:
+                if 'Cavity 1' in row:
+                    start = 1
+                    
+                if start == 1 and row != ["avg MC","stdev MC","avg SG","stdev Sg"]:
+                    l.append(row)
+
+                if row == ["avg MC","stdev MC","avg SG","stdev Sg"]:
+                    break
+                    
+        return l[2:]
+
+    def get_cavity(self, l, cav):
+        data = []
+        cavse = {'cav1': (1, 7), 'cav2': (8,14), 'cav3': (15,21), 'cav4': (22,28), 'cav5': (29,35), 'cav6': (36,42), 'cav7': (43,49)}
+
+        start, end = cavse[cav]
+
+        for row in l:
+            data.append(row[start:end+1])
+
+        return data
+
 
     #returns certain column from dataset
     def get_n_column(self, l, n):
@@ -169,11 +198,10 @@ class Controller():
         13) avgmoe 14) avgsg 15) std_dev_vel 16) std_dev_upt 
         '''
 
-        #mightve made mistake in create_fingprint with intqeu
-
+       
         pvmfh, pvmsh, pufh, push, bev, mev, tev, intqv = 0,0,0,0,0,0,0,0
         beu, meu, teu, intqu, moe, sg, stdv, stdu = 0,0,0,0,0,0,0,0
-
+        cav2, cav3, cav4, cav5, cav6 = 0,0,0,0,0
         
         wh_fh, wh_sh = self.get_halves(wh_info)
 
@@ -232,13 +260,48 @@ class Controller():
             stdv = 1
         if float(std[0][3]) > averages_u['std']:
             stdu = 1
+
+        #Features: 17-21
+        
+        cavity = self.get_cavity_data(sheet)
+
+        '''
+        CAVITIES 1 AND 7 ARE DOGSHIT
+        '''
+        c2 = self.get_cavity(cavity, 'cav2')
+        c3 = self.get_cavity(cavity, 'cav3')
+        c4 = self.get_cavity(cavity, 'cav4')
+        c5 = self.get_cavity(cavity, 'cav5')
+        c6 = self.get_cavity(cavity, 'cav6')
+        
+        cav2_df = self.get_n_column(c2, 4)
+        cav3_df = self.get_n_column(c3, 4)
+        cav4_df = self.get_n_column(c4, 4)
+        cav5_df = self.get_n_column(c5, 4)
+        cav6_df = self.get_n_column(c6, 4)
+  
+      
+        if cav2_df[0] < -180000:
+            cav2 = 1
+        
+        if cav3_df[0] < -175000:
+            cav3 =1
+
+        if cav4_df[0] < -87500:
+            cav4 = 1
+        
+        if cav5_df[0] < -170000:
+            cav5 = 1
+
+        if cav6_df[0] < -82500:
+            cav6 = 1
         
 
         temps = ''
         temps = temps + str(pvmfh) + str(pvmsh) + str(pufh) + str(push) + str(bev) + str(mev) + str(tev)
         temps = temps + str(intqv) + str(beu) + str(meu) + str(teu) + str(intqu) 
         temps = temps + str(moe) + str(sg) + str(stdv) + str(stdu)
-        
+        temps = temps + str(cav2) + str(cav3) + str(cav4) + str(cav5) + str(cav6)
 
         tempind = filename.find("/")
         tempfn = filename[tempind+1:]
