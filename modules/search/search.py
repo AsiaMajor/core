@@ -113,7 +113,7 @@ class Controller():
             name = key.decode("utf-8")
             form = {
                 "name": "",
-                "hamming_distance": 0,
+                "hamming": 0,
                 "priority": 0,
                 "fingerprint": ""
             }
@@ -147,6 +147,8 @@ class Controller():
         return {
             "input_fingerprint": self.fingerprint,
             "predicted": theSheet,
-            "top_five": sortedsh[:5]
+            "top_five": sortedsh[:5],
+            "top_three": sortedsh[:3],
+            "sheets_in_bucket": sortedsh,
         }
        
