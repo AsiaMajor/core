@@ -151,7 +151,6 @@ class Controller():
         euc_dist_sq = euc_dist * euc_dist
 
         #VALUE USED AS HASH KEY
-        print(euc_dist_sq)
         yuka_v = str(euc_dist_sq)
         hash_key = yuka_v[:3]
 
@@ -237,7 +236,7 @@ class Controller():
 
         temps = ''
         temps = temps + str(pvmfh) + str(pvmsh) + str(pufh) + str(push) + str(bev) + str(mev) + str(tev)
-        temps = temps + str(intqv) + str(intqu) + str(beu) + str(meu) + str(teu) + str(intqu) + str(moe)
+        temps = temps + str(intqv) + str(beu) + str(meu) + str(teu) + str(intqu) 
         temps = temps + str(moe) + str(sg) + str(stdv) + str(stdu)
         
 
