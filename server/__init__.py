@@ -1,11 +1,13 @@
 from flask import Flask
 from api.routes import api_routes
+from website.routes import website_routes
 import os
 
 def init_blueprints(app):
     try:
         #ADD Your App routes here
         app.register_blueprint(api_routes)
+        app.register_blueprint(website_routes)
         print('Registration Initialized')
     except Exception as e:
         print(e)
