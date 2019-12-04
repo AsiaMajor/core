@@ -1,22 +1,5 @@
 import pytest
 from modules import search
-# import redis
-
-    
-
-# f = open("tests/final.csv").readlines()
-
-# data = []
-# for line in f:
-#       data.append(line.replace('\n', '').split(','))
-# conn = redis.StrictRedis(host="localhost", port=6379, db=2)
-# for sheet in data[1:]:
-#      res = conn.hset(sheet[0], sheet[1], sheet[2])
-#      if res == 0:
-#              print(sheet, "NOT INSERTED")
-#      else:
-#              print(sheet, "OK")
-
 
 """
 commnad : python3 -m pytest test_search.py 
@@ -32,11 +15,6 @@ sheet6 = "01010101010101010101"
 
 sheet5_train_b_csv = "1001111000011000"
 sheet6_train_b_csv = "1100111000011100"
-
-# realTestData_Sheet6_train_b.csv = "1100111000011100"
-# realClass = search.Controller(234,"input6","1100111000011100")
-
-
 
 testClass = search.Controller(221,"sheet1","1111100000111110")
                             # hashKey, sheetName, fingerPrint
@@ -59,9 +37,10 @@ def test_hamming_return_value():        # test when 2 inputs have 10 different f
     testV = testClass.hamming(sheet5,sheet6) # expected output is 10.
     assert testV == 10
 
-def test_database_connection_none_null():   # checks if the databse is conncected
+def test_database_connection_none_null():   # checks if the database is connected
     assert testClass.conn != None
     
+#CODE BELOW ARE DISABLED SINCE WE DON'T HAVE REDIS DATABASE DEPLOYED IN THE CLOUD
 
 # def test_result_none_null():    # checks if the get_result() returns result
 #     testV = testClass.get_result()
