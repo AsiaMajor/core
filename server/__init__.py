@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from api.routes import api_routes
 from website.routes import website_routes
 import os
@@ -27,6 +28,7 @@ def init_config(app):
 def init_app():
     try:
         app = Flask(__name__)
+        CORS(app)
         init_blueprints(app)
         init_config(app)
         print('App Initialized')

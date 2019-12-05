@@ -5,7 +5,7 @@ website_routes = Blueprint('website', __name__, template_folder='templates', sta
 #Main app routes
 @website_routes.route('/')
 def IndexController():
-    # data = {
-    #     'backend_url' : current_app.config["BACKEND_URL"],
-    # }
-    return render_template('index.html')
+    data = {
+        'backend_url' : current_app.config["BACKEND_URL"],
+    }
+    return render_template('index.html', data=data)
