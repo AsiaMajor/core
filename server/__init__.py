@@ -1,11 +1,14 @@
 from flask import Flask
+from flask_cors import CORS
 from api.routes import api_routes
+from website.routes import website_routes
 import os
 
 def init_blueprints(app):
     try:
         #ADD Your App routes here
         app.register_blueprint(api_routes)
+        app.register_blueprint(website_routes)
         print('Registration Initialized')
     except Exception as e:
         print(e)
@@ -25,6 +28,7 @@ def init_config(app):
 def init_app():
     try:
         app = Flask(__name__)
+        CORS(app)
         init_blueprints(app)
         init_config(app)
         print('App Initialized')
